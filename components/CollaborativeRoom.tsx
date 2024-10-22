@@ -10,11 +10,13 @@ import { Input } from './ui/input';
 import Image from 'next/image';
 import { updateDocument } from '@/lib/actions/room.actions';
 import Loader from './Loader';
+import ShareModal from './ShareModal';
 
 const CollaborativeRoom = ({
   roomId,
   roomMetadata,
-  currentUserType
+  currentUserType,
+  users
 }: CollaborativeRoomProps) => {
   const [editing, isEditing] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -105,10 +107,15 @@ const CollaborativeRoom = ({
               )}
 
               {isLoading && <p className="text-sm text-gray-400">saving...</p>}
-              <p className="document-title">share</p>
             </div>
             <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
               <ActiveCollaborators />
+              <ShareModal
+                collaborators={users}
+                roomId={roomId}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
+              />
               <SignedOut>
                 <SignInButton />
               </SignedOut>
