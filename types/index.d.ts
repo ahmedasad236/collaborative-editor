@@ -78,3 +78,14 @@ declare type AddDocumentBtnProps = {
 declare type DeleteModalProps = { roomId: string };
 
 declare type ThreadWrapperProps = { thread: ThreadData<BaseMetadata> };
+
+declare type RoomType = {
+  id: string;
+  type: 'room';
+  lastConnectionAt: string; // ISO 8601 date-time format
+  createdAt: string; // ISO 8601 date-time format
+  metadata: Record<string, string>;
+  defaultAccesses: string | string[]; // Can be a string or an array of strings
+  usersAccesses: Record<string, object>; // Assuming it's an object, can be refined based on your data
+  groupsAccesses: Record<string, object>; // Assuming it's an object, can be refined based on your data
+};

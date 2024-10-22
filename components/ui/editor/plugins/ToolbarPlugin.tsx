@@ -18,12 +18,12 @@ import {
   FORMAT_TEXT_COMMAND,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
-  UNDO_COMMAND,
+  UNDO_COMMAND
 } from 'lexical';
 import {
   $createHeadingNode,
   $createQuoteNode,
-  $isHeadingNode,
+  $isHeadingNode
 } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import { $findMatchingParent } from '@lexical/utils';
@@ -33,7 +33,7 @@ import {
   useEffect,
   useRef,
   useState,
-  useSyncExternalStore,
+  useSyncExternalStore
 } from 'react';
 
 const LowPriority = 1;
@@ -74,10 +74,11 @@ export default function ToolbarPlugin() {
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         (_payload, _newEditor) => {
+          console.log(_payload, _newEditor);
           $updateToolbar();
           return false;
         },
-        LowPriority,
+        LowPriority
       ),
       editor.registerCommand(
         CAN_UNDO_COMMAND,
@@ -85,7 +86,7 @@ export default function ToolbarPlugin() {
           setCanUndo(payload);
           return false;
         },
-        LowPriority,
+        LowPriority
       ),
       editor.registerCommand(
         CAN_REDO_COMMAND,
@@ -93,8 +94,8 @@ export default function ToolbarPlugin() {
           setCanRedo(payload);
           return false;
         },
-        LowPriority,
-      ),
+        LowPriority
+      )
     );
   }, [editor, $updateToolbar]);
 
@@ -123,7 +124,10 @@ export default function ToolbarPlugin() {
   }
 
   return (
-    <div className="toolbar" ref={toolbarRef}>
+    <div
+      className="toolbar"
+      ref={toolbarRef}
+    >
       <button
         disabled={!canUndo}
         onClick={() => {
@@ -257,7 +261,7 @@ function useActiveBlock() {
     (onStoreChange: () => void) => {
       return editor.registerUpdateListener(onStoreChange);
     },
-    [editor],
+    [editor]
   );
 
   const getSnapshot = useCallback(() => {
